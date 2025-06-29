@@ -7,7 +7,7 @@ export const taskService = {
     return response.data
   },
 
-  async getTask(id: string): Promise<Task> {
+  async getTask(id: number): Promise<Task> {
     const response = await api.get(`/tasks/${id}`)
     return response.data
   },
@@ -17,12 +17,12 @@ export const taskService = {
     return response.data
   },
 
-  async updateTask(id: string, data: Partial<CreateTaskData>): Promise<Task> {
+  async updateTask(id: number, data: Partial<CreateTaskData>): Promise<Task> {
     const response = await api.patch(`/tasks/${id}`, data)
     return response.data
   },
 
-  async deleteTask(id: string): Promise<void> {
+  async deleteTask(id: number): Promise<void> {
     await api.delete(`/tasks/${id}`)
   },
 }

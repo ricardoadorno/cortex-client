@@ -8,7 +8,7 @@ export const taskKeys = {
   lists: () => [...taskKeys.all, 'list'] as const,
   list: (filters: TaskFilters) => [...taskKeys.lists(), { filters }] as const,
   details: () => [...taskKeys.all, 'detail'] as const,
-  detail: (id: string) => [...taskKeys.details(), id] as const,
+  detail: (id: number) => [...taskKeys.details(), id] as const,
 }
 
 // Queries
@@ -19,7 +19,7 @@ export function useTasks(filters?: TaskFilters) {
   })
 }
 
-export function useTask(id: string) {
+export function useTask(id: number) {
   return useQuery({
     queryKey: taskKeys.detail(id),
     queryFn: () => taskService.getTask(id),
@@ -43,7 +43,7 @@ export function useUpdateTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateTaskData }) =>
+    mutationFn: ({ id, data }: { id: number; data: UpdateTaskData }) =>
       taskService.updateTask(id, data),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: taskKeys.detail(id) })
@@ -56,7 +56,7 @@ export function useDeleteTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => taskService.deleteTask(id),
+    mutationFn: (id: number) => taskService.deleteTask(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: taskKeys.lists() })
     },
