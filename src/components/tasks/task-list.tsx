@@ -26,14 +26,27 @@ interface TaskListProps {
 
 const getStatusVariant = (status: TaskStatus) => {
     switch (status) {
-        case 'To Do':
+        case 'TO_DO':
             return 'secondary'
-        case 'In Progress':
+        case 'IN_PROGRESS':
             return 'default'
-        case 'Done':
+        case 'DONE':
             return 'outline'
         default:
             return 'secondary'
+    }
+}
+
+const getStatusLabel = (status: TaskStatus) => {
+    switch (status) {
+        case 'TO_DO':
+            return 'To Do'
+        case 'IN_PROGRESS':
+            return 'In Progress'
+        case 'DONE':
+            return 'Done'
+        default:
+            return status
     }
 }
 
@@ -104,7 +117,7 @@ export function TaskList({ tasks, onEdit, onDelete, isLoading }: TaskListProps) 
                     key={task.id}
                     className={cn(
                         "transition-all duration-200 hover:shadow-md",
-                        task.status === 'Done' && "opacity-75"
+                        task.status === 'DONE' && "opacity-75"
                     )}
                 >
                     <CardHeader className="pb-3">
@@ -112,7 +125,7 @@ export function TaskList({ tasks, onEdit, onDelete, isLoading }: TaskListProps) 
                             <div className="flex-1">
                                 <h3 className={cn(
                                     "font-semibold text-lg",
-                                    task.status === 'Done' && "line-through text-muted-foreground"
+                                    task.status === 'DONE' && "line-through text-muted-foreground"
                                 )}>
                                     {task.title}
                                 </h3>
@@ -169,7 +182,7 @@ export function TaskList({ tasks, onEdit, onDelete, isLoading }: TaskListProps) 
                             <Badge
                                 variant={getStatusVariant(task.status)}
                             >
-                                {task.status}
+                                {getStatusLabel(task.status)}
                             </Badge>
                             {task.dueDate && (
                                 <div className={cn(

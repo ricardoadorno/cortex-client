@@ -16,7 +16,6 @@ export function useTasks(filters?: TaskFilters) {
   return useQuery({
     queryKey: taskKeys.list(filters || {}),
     queryFn: () => taskService.getTasks(filters),
-    staleTime: 5 * 60 * 1000, // 5 minutes
   })
 }
 

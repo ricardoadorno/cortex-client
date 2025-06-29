@@ -30,9 +30,9 @@ interface TaskFormProps {
 }
 
 const taskStatuses: { value: TaskStatus; label: string }[] = [
-    { value: 'To Do', label: 'To Do' },
-    { value: 'In Progress', label: 'In Progress' },
-    { value: 'Done', label: 'Done' },
+    { value: 'TO_DO', label: 'To Do' },
+    { value: 'IN_PROGRESS', label: 'In Progress' },
+    { value: 'DONE', label: 'Done' },
 ]
 
 export function TaskForm({ onSubmit, onCancel, isLoading, initialData }: TaskFormProps) {
@@ -40,7 +40,7 @@ export function TaskForm({ onSubmit, onCancel, isLoading, initialData }: TaskFor
         title: initialData?.title || '',
         description: initialData?.description || '',
         dueDate: initialData?.dueDate || undefined,
-        status: initialData?.status || 'To Do',
+        status: initialData?.status || 'TO_DO',
     })
     const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -160,7 +160,6 @@ export function TaskForm({ onSubmit, onCancel, isLoading, initialData }: TaskFor
                                     mode="single"
                                     selected={formData.dueDate ? new Date(formData.dueDate) : undefined}
                                     onSelect={handleDateSelect}
-                                    initialFocus
                                 />
                             </PopoverContent>
                         </Popover>
